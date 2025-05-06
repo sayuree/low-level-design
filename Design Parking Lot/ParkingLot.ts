@@ -1,12 +1,12 @@
 import {Level} from "./Level";
-import {VehicleType} from "./Vehicle";
+import {Vehicle, VehicleType} from "./Vehicle";
 
 export class ParkingLot {
     private static instance: ParkingLot;
-    levels: Level[];
+    private levels: Level[];
 
     constructor() {
-
+        this.levels = [];
     }
 
     public static getInstance() {
@@ -16,11 +16,21 @@ export class ParkingLot {
         return ParkingLot.instance;
     }
 
-    public parkVehicle(vehicle: VehicleType): void {
-
+    public parkVehicle(vehicle: Vehicle): boolean {
+        for(let level of this.levels) {
+            if(level.parkVehicle(vehicle)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public unparkVehicle(vehicle: VehicleType): void {
-
+    public unparkVehicle(vehicle: Vehicle): boolean {
+        for(let level of this.levels) {
+            if(level.unparkVehicle(vehicle)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
